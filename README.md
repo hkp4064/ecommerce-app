@@ -50,7 +50,7 @@ No separate database installation is needed. SQLite is embedded and stored in a 
 
 ```bash
 # 1. Clone the repository
-git clone <repository-url>
+git clone https://github.com/hkp4064/ecommerce-app.git
 cd ecommerce-app
 
 # 2. Install dependencies
