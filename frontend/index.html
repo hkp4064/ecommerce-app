@@ -2,9 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>E-Commerce App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShopEasy | Products</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <h1>It works</h1>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">ShopEasy</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Products</h1>
+
+    <section class="filters" aria-label="Search and filter">
+      <input
+        type="search"
+        id="search-input"
+        placeholder="Search products..."
+        aria-label="Search products"
+        maxlength="100"
+      />
+      <select id="category-select" aria-label="Filter by category">
+        <option value="">All categories</option>
+      </select>
+      <button type="button" id="clear-btn" class="btn btn-secondary">Clear</button>
+    </section>
+
+    <p id="result-info" class="result-info" aria-live="polite"></p>
+
+    <div id="status" class="status" role="status"></div>
+    <div id="product-grid" class="product-grid"></div>
+
+    <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">Lab Assignment: Full-Stack E-Commerce, Part 1</div>
+  </footer>
+
+  <script type="module" src="js/listing.js"></script>
 </body>
 </html>
