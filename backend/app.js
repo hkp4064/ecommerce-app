@@ -14,8 +14,8 @@ app.get('/api/health', (req, res) => {
 });
 
 // Module 4 will add:
-// app.use('/api/products', require('./routes/products.routes'));
-// app.use('/api/categories', require('./routes/categories.routes'));
+app.use('/api/products', require('./routes/products.routes'));
+app.use('/api/categories', require('./routes/categories.routes'));
 
 // Unknown /api/* paths return a JSON 404 (not an HTML page)
 app.use('/api', notFound);
