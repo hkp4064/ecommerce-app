@@ -43,6 +43,9 @@ app.use('/api/products', require('./routes/products.routes'));
 app.use('/api/categories', require('./routes/categories.routes'));
 app.use('/api/cart', require('./routes/cart.routes'));
 
+if (process.env.ENABLE_FAILURE_DEMO === 'true') {
+  app.use('/api/debug', require('./routes/debug.routes'));
+}
 // Unknown /api/* paths return a JSON 404 (not an HTML page)
 app.use('/api', notFound);
 
