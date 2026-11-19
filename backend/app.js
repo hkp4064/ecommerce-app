@@ -4,8 +4,11 @@ const helmet = require('helmet');
 const { sessionMiddleware } = require('./middleware/session');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
+const requestLogger = require('./middleware/requestLogger');
 
 const app = express();
+
+app.use(requestLogger);
 
 // Parse JSON request bodies
 app.use(

@@ -17,6 +17,8 @@
     "show:users": "node scripts/show-users.js",
     "test:cart": "node scripts/cart-smoke.js",
     "demo:authz": "node scripts/demo-authz.js",
+    "demo:logging": "node scripts/logging-demo.js",
+    "dev:pretty": "nodemon --quiet backend/server.js | pino-pretty",
     "seed": "knex seed:run",
     "db:setup": "knex migrate:latest && knex seed:run"
   },

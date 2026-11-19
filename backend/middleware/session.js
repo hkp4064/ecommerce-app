@@ -1,6 +1,7 @@
 const session = require('express-session');
 const connectSessionKnex = require('connect-session-knex');
 const db = require('../db');
+const { logger } = require('../logger');
 
 const COOKIE_NAME = 'ecom.sid';
 const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
@@ -10,7 +11,7 @@ if (!secret) {
   throw new Error('SESSION_SECRET is not set. Copy .env.example to .env and set a random value.');
 }
 if (secret.startsWith('change-me')) {
-  console.warn('WARNING: SESSION_SECRET is still the placeholder value. Generate a random one.');
+  logger.warn({ event: 'insecure_config' }, 'SESSION_SECRET is still the placeholder value');
 }
 
 // Works with both the older and newer export styles of connect-session-knex.

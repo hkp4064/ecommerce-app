@@ -8,8 +8,10 @@ const loginLimiter = rateLimit({
   skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
-  handler: (req, res, next) =>
-    next(new HttpError(429, 'Too many failed login attempts. Please try again later.')),
+  handler: (req, res, next) => {
+    req.log.warn({ event: 'rate_limit_exceeded', path: req.originalUrl }, 'Login rate limit exceeded');
+    next(new HttpError(429, 'Too many failed login attempts. Please try again later.'));
+  },
 });
 
 module.exports = { loginLimiter };
