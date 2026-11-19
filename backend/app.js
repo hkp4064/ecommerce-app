@@ -5,10 +5,13 @@ const { sessionMiddleware } = require('./middleware/session');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 const requestLogger = require('./middleware/requestLogger');
+const metricsMiddleware = require('./middleware/metrics');
+const { register } = require('./metrics');
 
 const app = express();
 
 app.use(requestLogger);
+app.use(metricsMiddleware);
 
 // Parse JSON request bodies
 app.use(
@@ -29,6 +32,10 @@ app.use(sessionMiddleware);
 // ---- API routes ----
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
+});
+app.get('/metrics', async (req, res) => {
+  res.set('Content-Type', register.contentType);
+  res.end(await register.metrics());
 });
 
 app.use('/api/auth', require('./routes/auth.routes'));

@@ -1,6 +1,7 @@
 const db = require('../db');
 const HttpError = require('../middleware/HttpError');
 const { MAX_QUANTITY } = require('../validators/cart.validator');
+const { cartOperationsTotal, cartItemsAddedTotal } = require('../metrics');
 
 // Money is summed in paise/cents (integers) to avoid floating-point errors.
 const toCents = (price) => Math.round(Number(price) * 100);
@@ -96,6 +97,8 @@ async function addItem(userId, productId, quantity) {
     }
     await touchCart(trx, cart.id);
   });
+  cartOperationsTotal.inc({ operation: 'add' });
+  cartItemsAddedTotal.inc(quantity);
   return getCart(userId);
 }
 
@@ -114,6 +117,7 @@ async function updateItem(userId, itemId, quantity) {
     await trx('cart_items').where({ id: item.id }).update({ quantity });
     await touchCart(trx, cart.id);
   });
+  cartOperationsTotal.inc({ operation: 'update' });
   return getCart(userId);
 }
 
@@ -124,6 +128,7 @@ async function removeItem(userId, itemId) {
     if (deleted === 0) throw new HttpError(404, 'Cart item not found');
     await touchCart(trx, cart.id);
   });
+  cartOperationsTotal.inc({ operation: 'remove' });
   return getCart(userId);
 }
 

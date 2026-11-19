@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const db = require('../db');
 const HttpError = require('../middleware/HttpError');
+const { authAttemptsTotal } = require('../metrics');
 
 const ROUNDS = 12; // bcrypt cost factor
 
@@ -35,7 +36,11 @@ async function registerUser({ email, name, password }) {
 async function authenticate(email, password) {
   const user = await db('users').where({ email }).first();
   const ok = await bcrypt.compare(password, user ? user.password_hash : DUMMY_HASH);
-  if (!user || !ok) return null;
+  if (!user || !ok) {
+    authAttemptsTotal.inc({ result: 'failure' });
+    return null;
+  }
+  authAttemptsTotal.inc({ result: 'success' });
   return { id: user.id, email: user.email, name: user.name };
 }
 
