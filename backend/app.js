@@ -31,6 +31,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/products', require('./routes/products.routes'));
 app.use('/api/categories', require('./routes/categories.routes'));
+app.use('/api/cart', require('./routes/cart.routes'));
 
 // Unknown /api/* paths return a JSON 404 (not an HTML page)
 app.use('/api', notFound);
