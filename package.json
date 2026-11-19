@@ -16,6 +16,7 @@
     "test:auth": "node scripts/auth-smoke.js",
     "show:users": "node scripts/show-users.js",
     "test:cart": "node scripts/cart-smoke.js",
+    "demo:authz": "node scripts/demo-authz.js",
     "seed": "knex seed:run",
     "db:setup": "knex migrate:latest && knex seed:run"
   },

@@ -46,6 +46,7 @@ function createClient(base = BASE_URL) {
     post: (path, body) => request('POST', path, body ?? {}),
     patch: (path, body) => request('PATCH', path, body ?? {}),
     delete: (path) => request('DELETE', path),
+    cookieHeader: () => [...jar].map(([k, v]) => `${k}=${v}`).join('; '),
   };
 }
 
