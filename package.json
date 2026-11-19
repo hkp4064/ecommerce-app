@@ -13,6 +13,8 @@
     "migrate:status": "knex migrate:status",
     "migrate:rollback": "knex migrate:rollback",
     "verify:migration": "node scripts/verify-migration.js",
+    "test:auth": "node scripts/auth-smoke.js",
+    "show:users": "node scripts/show-users.js",
     "seed": "knex seed:run",
     "db:setup": "knex migrate:latest && knex seed:run"
   },

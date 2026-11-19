@@ -1,19 +1,34 @@
 const path = require('path');
 const express = require('express');
+const helmet = require('helmet');
+const { sessionMiddleware } = require('./middleware/session');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
 // Parse JSON request bodies
-app.use(express.json());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'img-src': ["'self'", 'data:', 'https://picsum.photos', 'https://*.picsum.photos'],
+        'upgrade-insecure-requests': null, // we serve plain http on localhost
+      },
+    },
+  })
+);
+
+app.use(express.json({ limit: '10kb' }));
+app.use(sessionMiddleware);
 
 // ---- API routes ----
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// Module 4 will add:
+app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/products', require('./routes/products.routes'));
 app.use('/api/categories', require('./routes/categories.routes'));
 
