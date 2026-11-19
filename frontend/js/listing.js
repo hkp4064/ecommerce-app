@@ -1,5 +1,6 @@
 import { getProducts, getCategories } from './api.js';
 import { escapeHtml, formatPrice, IMAGE_FALLBACK } from './utils.js';
+import { initNav } from './nav.js';
 
 const PAGE_SIZE = 8;
 
@@ -171,6 +172,7 @@ grid.addEventListener(
 
 // ---------- Init ----------
 
+initNav();
 searchInput.value = state.search;
 loadCategories();
 loadProducts();

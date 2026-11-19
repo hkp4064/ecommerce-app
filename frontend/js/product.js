@@ -1,5 +1,6 @@
 import { getProduct } from './api.js';
 import { escapeHtml, formatPrice, IMAGE_FALLBACK } from './utils.js';
+import { initNav } from './nav.js';
 
 const detailEl = document.getElementById('product-detail');
 const statusEl = document.getElementById('status');
@@ -39,6 +40,7 @@ function renderProduct(p) {
 }
 
 async function init() {
+  initNav();
   const id = new URLSearchParams(window.location.search).get('id');
 
   // "Back" returns to the listing with its search/filter/page preserved
