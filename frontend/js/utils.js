@@ -28,3 +28,22 @@ export const IMAGE_FALLBACK =
       "text-anchor='middle' dominant-baseline='middle'>No image</text></svg>"
   );
   
+// Must match MAX_QUANTITY in backend/validators/cart.validator.js.
+// This is only a convenience for the UI; the server enforces the real limit.
+export const MAX_QUANTITY_PER_PRODUCT = 10;
+
+// Small pop-up message in the corner of the screen
+export function showToast(message, type = 'info') {
+  let container = document.getElementById('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.setAttribute('aria-live', 'polite');
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message; // textContent, so server messages can't inject HTML
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3500);
+}

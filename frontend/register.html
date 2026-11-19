@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShopEasy | Register</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/" class="logo">ShopEasy</a>
+      <nav id="site-nav" class="site-nav" aria-label="Main"></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="auth-card">
+      <h1>Create an account</h1>
+      <div id="form-error" class="form-error" role="alert" hidden></div>
+
+      <form id="auth-form" data-mode="register" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" autocomplete="name" maxlength="100" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email" maxlength="254" required />
+
+        <label for="password">Password <span class="hint">(8 to 72 characters)</span></label>
+        <input type="password" id="password" name="password" autocomplete="new-password" maxlength="72" required />
+
+        <label for="confirm">Confirm password</label>
+        <input type="password" id="confirm" name="confirm" autocomplete="new-password" maxlength="72" required />
+
+        <button type="submit" id="submit-btn" class="btn btn-block">Register</button>
+      </form>
+
+      <p class="auth-alt">Already have an account? <a id="alt-link" href="login.html">Log in</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">Lab Assignment: Full-Stack E-Commerce</div>
+  </footer>
+
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>

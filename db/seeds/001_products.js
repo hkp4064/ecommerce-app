@@ -1,15 +1,18 @@
 /**
  * Seeds categories and sample products.
- * Safe to re-run: clears existing rows first.
+ * Safe to re-run: does nothing if products already exist, so it never
+ * deletes data that carts depend on.
+ * To start from scratch, delete data.sqlite and run `npm run db:setup`.
  */
 const img = (seed) => `https://picsum.photos/seed/${seed}/600/400`;
 
 exports.seed = async function (knex) {
-  await knex('products').del();
-  await knex('categories').del();
-  // reset auto-increment counters
-  await knex.raw("DELETE FROM sqlite_sequence WHERE name IN ('products', 'categories')");
-
+  const existing = await knex('products').count({ total: '*' }).first();
+  if (Number(existing.total) > 0) {
+    console.log(`Seed skipped: ${existing.total} products already exist.`);
+    return;
+  }
+  
   await knex('categories').insert([
     { id: 1, name: 'Electronics' },
     { id: 2, name: 'Books' },

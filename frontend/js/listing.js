@@ -1,5 +1,7 @@
 import { getProducts, getCategories } from './api.js';
 import { escapeHtml, formatPrice, IMAGE_FALLBACK } from './utils.js';
+import { initNav } from './nav.js';
+import { addProductToCart } from './add-to-cart.js';
 
 const PAGE_SIZE = 8;
 
@@ -33,12 +35,16 @@ function productCard(p) {
           <span class="badge">${escapeHtml(p.category)}</span>
           <h2 class="card-title">${escapeHtml(p.name)}</h2>
           <p class="card-desc">${escapeHtml(p.description)}</p>
-          <div class="card-footer">
-            <span class="price">${formatPrice(p.price)}</span>
-            ${outOfStock ? '<span class="stock out">Out of stock</span>' : ''}
-          </div>
         </div>
       </a>
+      <div class="card-footer">
+        <span class="price">${formatPrice(p.price)}</span>
+        ${
+          outOfStock
+            ? '<span class="stock out">Out of stock</span>'
+            : `<button type="button" class="btn btn-small add-to-cart" data-id="${p.id}">Add to cart</button>`
+        }
+      </div>
     </article>`;
 }
 
@@ -169,8 +175,14 @@ grid.addEventListener(
   true
 );
 
+grid.addEventListener('click', (e) => {
+  const btn = e.target.closest('.add-to-cart');
+  if (btn) addProductToCart(Number(btn.dataset.id), btn);
+});
+
 // ---------- Init ----------
 
+initNav();
 searchInput.value = state.search;
 loadCategories();
 loadProducts();
