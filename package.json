@@ -12,6 +12,7 @@
     "migrate": "knex migrate:latest",
     "migrate:status": "knex migrate:status",
     "migrate:rollback": "knex migrate:rollback",
+    "verify:migration": "node scripts/verify-migration.js",
     "seed": "knex seed:run",
     "db:setup": "knex migrate:latest && knex seed:run"
   },
